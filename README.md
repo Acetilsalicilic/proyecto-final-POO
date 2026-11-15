@@ -5,6 +5,9 @@
 - Áreas : Anniegood
 - Personas : Aceil
 
+## Directorios
+La carpeta `src` es para poner el código fuente de Java. La carpeta `out` es para compilación, se puede ignorar.
+
 ## Diagramas
 
 ### Personas
