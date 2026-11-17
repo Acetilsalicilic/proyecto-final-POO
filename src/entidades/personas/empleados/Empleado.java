@@ -13,4 +13,8 @@ public class Empleado extends Persona {
     LocalTime horaEntrada;
     LocalTime horaSalida;
     Usuario usuario;
+
+    public Empleado(String nombre) {
+        super(nombre);
+    }
 }

@@ -8,4 +8,8 @@ import java.util.List;
 public class Entrenador extends Empleado {
     TipoClase tipoClase;
     List<Clase> clases;
+
+    public Entrenador(String nombre) {
+        super(nombre);
+    }
 }
