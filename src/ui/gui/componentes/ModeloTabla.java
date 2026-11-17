@@ -1,15 +1,27 @@
 package ui.gui.componentes;
 
+import servicios.IServicio;
+import servicios.ISuscriptor;
+
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
-public abstract class ModeloTabla<T> extends AbstractTableModel {
-    protected List<T> lista;
-    protected String[] titulos;
+public class ModeloTabla<T> extends AbstractTableModel implements ISuscriptor {
+    private List<T> lista = List.of();
+    private String[] titulos;
+    private BiFunction<T, Integer, Object> getter;
+    private IServicio<T> servicio;
 
-    public ModeloTabla(List<T> lista, String... titulos) {
-        this.lista = lista;
+    public ModeloTabla(IServicio<T> servicio, BiFunction<T, Integer, Object> getter, String... titulos) {
         this.titulos = titulos;
+        this.getter = getter;
+        this.servicio = servicio;
+
+        lista = servicio.getTodos();
+
+        servicio.suscribir(this);
     }
 
     @Override
@@ -25,5 +37,16 @@ public abstract class ModeloTabla<T> extends AbstractTableModel {
     @Override
     public String getColumnName(int c) {
         return titulos[c];
+    }
+
+    @Override
+    public Object getValueAt(int r, int c) {
+        return getter.apply(lista.get(r), c);
+    }
+
+    @Override
+    public void notificar() {
+        lista = servicio.getTodos();
+        fireTableDataChanged();
     }
 }

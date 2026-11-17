@@ -1,12 +1,14 @@
 package ui.gui.admin;
 
+import entidades.membresias.MembresiaDummy;
+import servicios.ServicioMembresias;
 import ui.gui.componentes.PantallaCampos;
 
 public class PantallaCrearMembresia extends PantallaCampos {
     public PantallaCrearMembresia() {
         super(
                 mapa -> {
-                    mapa.keySet().forEach(key -> System.out.print(""+key+": "+mapa.get(key)+", "));
+                    ServicioMembresias.instancia().agregar(new MembresiaDummy(mapa.get("Nombre")));
                 },
                 "Crear membresía",
                 15,

@@ -1,4 +1,4 @@
-package ui.gui.componentes;
+package servicios;
 
 public interface ISuscriptor {
     public void notificar();

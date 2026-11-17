@@ -2,7 +2,6 @@ package servicios;
 
 import entidades.membresias.Membresia;
 import entidades.membresias.MembresiaDummy;
-import ui.gui.componentes.ISuscriptor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +28,7 @@ public class ServicioMembresias implements IServicio<Membresia> {
     @Override
     public void agregar(Membresia e) {
         membresias.add(e);
+        notificarTodos();
     }
 
     @Override
@@ -39,5 +39,11 @@ public class ServicioMembresias implements IServicio<Membresia> {
     @Override
     public void desuscribir(ISuscriptor s) {
         subs.remove(s);
+    }
+
+    @Override
+    public void notificarTodos() {
+        System.err.println("Notificando a todos los subs");
+        subs.forEach(ISuscriptor::notificar);
     }
 }
