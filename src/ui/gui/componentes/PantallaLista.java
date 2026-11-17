@@ -11,6 +11,6 @@ public class PantallaLista extends Pantalla {
     public PantallaLista(AbstractTableModel model) {
         this.model = model;
         JScrollPane scrollTabla = new JScrollPane(new JTable(model));
-        addContenedor(scrollTabla);
+        addComponente(scrollTabla);
     }
 }

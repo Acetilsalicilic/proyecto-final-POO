@@ -12,7 +12,7 @@ public abstract class Pantalla extends JPanel {
         contenedor.setLayout(new BoxLayout(contenedor, BoxLayout.Y_AXIS));
         add(scroll, BorderLayout.CENTER);
     }
-    protected void addContenedor(JComponent p) {
+    protected void addComponente(JComponent p) {
         contenedor.add(p);
     }
 }

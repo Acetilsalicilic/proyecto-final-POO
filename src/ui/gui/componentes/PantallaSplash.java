@@ -8,6 +8,6 @@ public class PantallaSplash extends Pantalla {
     public PantallaSplash(String titulo) {
         var titulo_l = new JLabel(titulo);
         titulo_l.setFont(GUI.FUENTE_TITULO);
-        addContenedor(titulo_l);
+        addComponente(titulo_l);
     }
 }
