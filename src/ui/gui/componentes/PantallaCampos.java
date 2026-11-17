@@ -8,36 +8,17 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class PantallaCampos extends Pantalla {
-    private Map<String, JTextField> campos = new HashMap<>();
-    private JPanel filas = new JPanel();
+    protected JPanel filas = new JPanel();
+    protected int ancho = 0;
 
-    public PantallaCampos() {
+    public PantallaCampos(int ancho) {
+        this.ancho = ancho;
+
         filas.setLayout(new BoxLayout(filas, BoxLayout.Y_AXIS));
         filas.add(Box.createVerticalBox());
         addComponente(filas);
     }
 
-    public PantallaCampos(Consumer<Map<String, String>> handler, String etiquetaBoton, int ancho, String... titulos) {
-        this();
-
-        // Añadir las filas
-        for (var titulo : titulos) {
-            campos.put(titulo, new JTextField(ancho));
-            addFila(new JLabel(titulo), campos.get(titulo));
-        }
-
-        JButton boton = new JButton(etiquetaBoton);
-        boton.addActionListener(evt -> {
-            Map<String, String> texto = new HashMap<>();
-
-            for (var titulo : campos.keySet()) {
-                texto.put(titulo, campos.get(titulo).getText());
-            }
-
-            handler.accept(texto);
-        });
-        addFila(boton);
-    }
     protected void addFila(JComponent... componentes) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -48,5 +29,8 @@ public class PantallaCampos extends Pantalla {
 
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, panel.getPreferredSize().height));
         filas.add(panel);
+    }
+    protected void addFila(String etiqueta, JComponent c) {
+        addFila(new JLabel(etiqueta), c);
     }
 }

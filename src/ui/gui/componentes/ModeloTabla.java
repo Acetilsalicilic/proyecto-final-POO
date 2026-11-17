@@ -6,7 +6,6 @@ import servicios.ISuscriptor;
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 
 public class ModeloTabla<T> extends AbstractTableModel implements ISuscriptor {
     private List<T> lista = List.of();

@@ -14,10 +14,14 @@ public class PantallaListaMembresias extends PantallaLista {
                 (membresia, idx) -> switch (idx) {
                     case 0 -> membresia.getNombre();
                     case 1 -> membresia.getCostoBase();
+                    case 2 -> membresia.isIncluyeCoach();
+                    case 3 -> membresia.getDescuentoTemporada();
                     default -> null;
                 },
                 "Nombre",
-                "Costo base"
+                "Costo base",
+                "¿Incluye coach?",
+                "Dcto. de temporada"
         );
         super(new JTable(modelo));
     }
