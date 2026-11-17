@@ -6,52 +6,48 @@ import entidades.sistema.Usuario;
 
 import javax.swing.*;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 public class Login extends JPanel {
-    private JLabel title;
-    private JPanel buttonPanel;
-    private JTextField username_t;
-    private JTextField passwd_t;
-    private JButton login_b;
+    private JPanel container = new JPanel();
+    private JTextField user_t, passwd_t;
+    private JButton inicio_b;
 
-    private Usuario admin = new Usuario("admin", "admin");
-    private Persona admin_p = new Administrador("Admin");
+    // TODO esto debería estar en un servicio
+    private Administrador admin = new Administrador("admin");
+    private Usuario usr = new Usuario("admin", "admin");
 
-    public Login(Consumer<Persona> onSucessful, Runnable onFailure) {
-        super();
-        buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        add(buttonPanel);
+    public Login(Consumer<Persona> enExito, Runnable enFracaso) {
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
-        title = new JLabel("Iniciar sesión");
-        title.setFont(GUI.TITLE_FONT);
-        buttonPanel.add(title);
+        var titulo_l = new JLabel("Inicio de sesión");
+        titulo_l.setFont(GUI.FUENTE_TITULO);
+        container.add(titulo_l);
 
-        username_t = new JTextField();
-        buttonPanel.add(username_t);
-
+        user_t = new JTextField();
         passwd_t = new JTextField();
-        buttonPanel.add(passwd_t);
 
-        login_b = new JButton("Login");
-        buttonPanel.add(login_b);
+        container.add(user_t);
+        container.add(passwd_t);
 
-        login_b.addActionListener(evt -> {
-            String username = username_t.getText();
+        inicio_b = new JButton("Ingresar");
+        inicio_b.addActionListener(evt -> {
+            String user = user_t.getText();
             String passwd = passwd_t.getText();
-            Usuario user = new Usuario(username, passwd);
 
-            username_t.setText("");
+            user_t.setText("");
             passwd_t.setText("");
 
-            if (admin.equals(user)) {
-                onSucessful.accept(admin_p);
+            var nuevo = new Usuario(user, passwd);
+
+            // TODO esto debería poder manejar más casos, y consultar usuario -> persona en una DB
+            if (nuevo.equals(usr)) {
+                enExito.accept(admin);
             } else {
-                System.out.println("Admin: "+admin);
-                System.out.println("New: "+user);
-                onFailure.run();
+                enFracaso.run();
             }
         });
+        container.add(inicio_b);
+
+        add(container);
     }
 }

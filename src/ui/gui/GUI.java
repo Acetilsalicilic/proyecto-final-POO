@@ -2,8 +2,7 @@ package ui.gui;
 
 import entidades.personas.Persona;
 import entidades.personas.empleados.Administrador;
-import ui.gui.admin.MenuAdmin;
-import ui.gui.admin.MenuMembresias;
+import ui.gui.admin.VistaAdmin;
 
 import javax.smartcardio.Card;
 import javax.swing.*;
@@ -11,37 +10,33 @@ import java.awt.*;
 import java.util.function.Consumer;
 
 public class GUI {
+    public static final Font FUENTE_TITULO = new Font("Adwaita Sans", Font.PLAIN, 30);
+
     private JFrame frame;
     private JPanel main = new JPanel();
-
-    public static Font TITLE_FONT = new Font("Adwaita Sans", Font.PLAIN, 30);
-
-    private static final String LOGIN = "login";
-
     public GUI() {
-        frame = new JFrame("Ventana");
+        frame = new JFrame("Sistema GYM");
         main.setLayout(new CardLayout());
         frame.add(main);
 
-        Consumer<Persona> onSuccesful = persona -> {
-            JOptionPane.showMessageDialog(frame, "OK! Bienvenid@, "+persona.getNombre());
+        //main.add(new VistaAdmin(new Administrador("admin")), BorderLayout.CENTER);
+
+        Consumer<Persona> enExito = persona -> {
             switch (persona) {
                 case Administrador adm -> {
-                    main.add(new MenuAdmin(adm), MenuAdmin.MENU_ADMIN);
-                    ((CardLayout) main.getLayout()).show(main, MenuAdmin.MENU_ADMIN);
+                    main.add(new VistaAdmin(adm), "vistaAdmin");
+                    var mgr = (CardLayout) main.getLayout();
+                    mgr.show(main, "vistaAdmin");
                 }
-                default -> throw new IllegalArgumentException("Tipo de usuario desconocido en LOGIN");
+                default -> throw new IllegalArgumentException("Tipo de persona desconocido");
             }
         };
 
-        main.add(new Login(
-                onSuccesful,
-                () -> JOptionPane.showMessageDialog(frame, "WRONG!")
-        ), LOGIN);
+        main.add(new Login(enExito, () -> JOptionPane.showMessageDialog(frame, "ERROR!")), "login");
 
-        // Configure the frame
+        // Configurar la ventana
+        frame.setBounds(200, 200, 800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setBounds(100, 100, 700, 900);
     }
     public void show() {
         frame.setVisible(true);
