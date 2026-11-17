@@ -1,38 +1,38 @@
 package ui.gui.admin;
 
 import entidades.membresias.Membresia;
+import servicios.IServicio;
 import servicios.ServicioMembresias;
 import ui.gui.componentes.ISuscriptor;
+import ui.gui.componentes.ModeloTabla;
 import ui.gui.componentes.PantallaLista;
+import ui.gui.componentes.Tabla;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 
 public class PantallaListaMembresias extends PantallaLista {
     public PantallaListaMembresias() {
-        super(new ModeloListaMembresias(ServicioMembresias.instancia()));
+        super(new TablaMembresias(ServicioMembresias.instancia()));
     }
 }
 
-class ModeloListaMembresias extends AbstractTableModel implements ISuscriptor {
-    private ServicioMembresias membresias;
-    private List<Membresia> lista;
+class TablaMembresias extends Tabla<Membresia> {
 
-    public ModeloListaMembresias(ServicioMembresias servicio) {
-        membresias = servicio;
-        servicio.suscribir(this);
-
-        lista = servicio.getTodos();
+    public TablaMembresias(ServicioMembresias servicio) {
+        super(servicio);
     }
 
     @Override
-    public int getRowCount() {
-        return lista.size();
+    public void notificar() {
+        modelo = new ModeloListaMembresias(servicio.getTodos());
+        setModel(modelo);
     }
+}
 
-    @Override
-    public int getColumnCount() {
-        return 3;
+class ModeloListaMembresias extends ModeloTabla<Membresia> {
+    public ModeloListaMembresias(List<Membresia> lista) {
+        super(lista, "Nombre", "Costo base");
     }
 
     @Override
@@ -42,23 +42,7 @@ class ModeloListaMembresias extends AbstractTableModel implements ISuscriptor {
         return switch (c) {
             case 0 -> obj.getNombre();
             case 1 -> obj.getCostoBase();
-            case 3 -> obj.isIncluyeCoach();
             default -> null;
         };
-    }
-
-    @Override
-    public String getColumnName(int col) {
-        return switch(col) {
-            case 0 -> "Nombre";
-            case 1 -> "Costo base";
-            case 2 -> "Incluye coach?";
-            default -> null;
-        };
-    }
-
-    @Override
-    public void notificar() {
-        throw new UnsupportedOperationException("No implementado");
     }
 }

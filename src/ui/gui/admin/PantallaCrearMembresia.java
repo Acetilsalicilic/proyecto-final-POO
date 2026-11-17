@@ -10,7 +10,9 @@ public class PantallaCrearMembresia extends PantallaCampos {
                 },
                 "Crear membresía",
                 15,
-                "Nombre"
+                "Nombre",
+                "Costo base",
+                "¿Incluye coach?"
         );
     }
 }

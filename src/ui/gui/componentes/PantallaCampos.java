@@ -2,6 +2,7 @@ package ui.gui.componentes;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -9,8 +10,15 @@ import java.util.function.Consumer;
 public class PantallaCampos extends Pantalla {
     private Map<String, JTextField> campos = new HashMap<>();
     private JPanel filas = new JPanel();
-    public PantallaCampos(Consumer<Map<String, String>> handler, String etiquetaBoton, int ancho, String... titulos) {
+
+    public PantallaCampos() {
         filas.setLayout(new BoxLayout(filas, BoxLayout.Y_AXIS));
+        filas.add(Box.createVerticalBox());
+        addComponente(filas);
+    }
+
+    public PantallaCampos(Consumer<Map<String, String>> handler, String etiquetaBoton, int ancho, String... titulos) {
+        this();
 
         // Añadir las filas
         for (var titulo : titulos) {
@@ -29,12 +37,8 @@ public class PantallaCampos extends Pantalla {
             handler.accept(texto);
         });
         addFila(boton);
-
-        // Añadir las filas al contenedor
-        filas.add(Box.createVerticalBox());
-        addComponente(filas);
     }
-    private void addFila(JComponent... componentes) {
+    protected void addFila(JComponent... componentes) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
         panel.setAlignmentX(Component.LEFT_ALIGNMENT);
