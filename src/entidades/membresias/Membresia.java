@@ -14,14 +14,14 @@ public abstract class Membresia {
     protected double costoBase;
     protected double descuentoTemporada;
 
-    public static List<Membresia> membresiasDisponibles = new ArrayList<>();
+    public Membresia(String nombre, boolean incluyeCoach, double costoBase) {
+        this.nombre = nombre;
+        this.incluyeCoach = incluyeCoach;
+        this.costoBase = costoBase;
+    }
 
     public double getDescuentoTemporada() {
         return descuentoTemporada;
-    }
-
-    public void addMembresia(Membresia m) {
-        membresiasDisponibles.add(m);
     }
 
     public String getNombre() {
