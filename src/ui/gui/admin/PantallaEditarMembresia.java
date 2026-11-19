@@ -8,7 +8,7 @@ import java.util.Map;
 public class PantallaEditarMembresia extends PantallaCampos {
     private Membresia membresia;
     private String[] etiquetas = {"Nombre", "Costo base", "¿Incluye coach?", "Descuento de temporada (número)"};
-    public PantallaEditarMembresia(int ancho) {
+    public PantallaEditarMembresia(int ancho, Runnable afterGuardar) {
         super(ancho);
 
         addCampoTexto(etiquetas[0]);
@@ -29,6 +29,8 @@ public class PantallaEditarMembresia extends PantallaCampos {
             membresia.setDescuentoTemporada(dctoTemporada);
 
             asignarValores();
+
+            afterGuardar.run();
         });
     }
     public void editarMembresia(Membresia membresia) {
@@ -38,7 +40,7 @@ public class PantallaEditarMembresia extends PantallaCampos {
     private void asignarValores() {
         setTextoCampo(etiquetas[0], membresia.getNombre());
         setTextoCampo(etiquetas[1], membresia.getCostoBase());
-        setTextoCampo(etiquetas[2], membresia.isIncluyeCoach());
+        setCheck(etiquetas[2], membresia.isIncluyeCoach());
         setTextoCampo(etiquetas[3], membresia.getDescuentoTemporada());
     }
 }

@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.util.function.Consumer;
 
 public class PantallaListaMembresias extends PantallaLista {
-    public PantallaListaMembresias(Consumer<Membresia> enEditar) {
+    public PantallaListaMembresias() {
         ModeloTabla<Membresia> modelo = new ModeloTabla<>(
                 ServicioMembresias.instancia(),
                 (membresia, idx) -> switch (idx) {
@@ -24,9 +24,17 @@ public class PantallaListaMembresias extends PantallaLista {
                 "¿Incluye coach?",
                 "Dcto. de temporada"
         );
-        super(new JTable(modelo), obj -> {
+        super(new JTable(modelo));
+
+        PantallaEditarMembresia editarMembresia = new PantallaEditarMembresia(15, () -> {
+            cardLayout.show(this, PRINCIPAL);
+        });
+        addPantallaEditar(editarMembresia);
+
+        addEnEditar(obj -> {
             if (obj instanceof Membresia m)
-                enEditar.accept(m);
+                editarMembresia.editarMembresia(m);
+            cardLayout.show(this, EDITAR);
         });
     }
 }

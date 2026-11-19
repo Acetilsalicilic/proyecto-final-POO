@@ -65,6 +65,11 @@ public class PantallaCampos extends Pantalla {
     protected void setTextoCampo(String etiqueta, Object texto) {
         setTextoCampo(etiqueta, texto.toString());
     }
+    protected void setCheck(String etiqueta, boolean valor) {
+        if (!camposCheck.containsKey(etiqueta))
+            throw new IllegalStateException("No existe el campo con la etiqueta: "+etiqueta);
+        camposCheck.get(etiqueta).setSelected(valor);
+    }
     protected void addCampoTexto(String etiqueta) {
         JTextField campo = new JTextField(ancho);
         camposTexto.put(etiqueta, campo);
