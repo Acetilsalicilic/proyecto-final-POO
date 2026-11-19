@@ -3,13 +3,15 @@ package ui.gui.componentes;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public class PantallaCampos extends Pantalla {
     protected JPanel filas = new JPanel();
     protected int ancho = 0;
-    protected Map<String, JComponent> componentes = new HashMap<>();
 
+    protected Map<String, JTextField> camposTexto = new HashMap<>();
+    protected Map<String, JCheckBox> camposCheck = new HashMap<>();
+
+    // TODO analizar que hacer con el ancho. Podría desaparecer si se unsa GridBagLayout?
     public PantallaCampos(int ancho) {
         this.ancho = ancho;
 
@@ -18,6 +20,7 @@ public class PantallaCampos extends Pantalla {
         addComponente(filas);
     }
 
+    // TODO analizar si de verdad hacen falta tantos métodos distintos para añadir filas
     protected void addFila(JComponent... componentes) {
         JPanel panel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -33,7 +36,11 @@ public class PantallaCampos extends Pantalla {
     }
     protected void addFila(String etiqueta, JComponent c) {
         addFila(new JLabel(etiqueta), c);
-        componentes.put(etiqueta, c);
+
+        if (c instanceof JTextField t)
+            camposTexto.put(etiqueta, t);
+        else if (c instanceof JCheckBox t)
+            camposCheck.put(etiqueta, t);
     }
     protected void addBoton(String etiqueta, Runnable enBotonPresionado) {
         var boton = new JButton(etiqueta);
@@ -44,27 +51,40 @@ public class PantallaCampos extends Pantalla {
         addFila(etiqueta, boton);
     }
     protected void limpiarCampos() {
-        for (var c : componentes.values()) {
-            switch (c) {
-                case JTextField t -> t.setText("");
-                case JCheckBox ch -> ch.setSelected(false);
-                case JButton _ -> {} // No hacer nada
-                case JComboBox _ -> {} // No hacer nada
-                default -> throw new IllegalArgumentException("Tipo de componente desconocido");
-            }
-        }
+        for (var t : camposTexto.values())
+            t.setText("");
+
+        for (var c : camposCheck.values())
+            c.setSelected(false);
+    }
+    protected void setTextoCampo(String etiqueta, String texto) {
+        if (!camposTexto.containsKey(etiqueta))
+            throw new IllegalStateException("No existe el campo con la etiqueta: "+etiqueta);
+        camposTexto.get(etiqueta).setText(texto);
+    }
+    protected void setTextoCampo(String etiqueta, Object texto) {
+        setTextoCampo(etiqueta, texto.toString());
     }
     protected void addCampoTexto(String etiqueta) {
         JTextField campo = new JTextField(ancho);
-        componentes.put(etiqueta, campo);
+        camposTexto.put(etiqueta, campo);
         addFila(etiqueta, campo);
     }
     protected void addCheck(String etiqueta) {
         JCheckBox campo = new JCheckBox();
-        componentes.put(etiqueta, campo);
+        camposCheck.put(etiqueta, campo);
         addFila(etiqueta, campo);
     }
-    protected JComponent get(String etiqueta) {
-        return componentes.getOrDefault(etiqueta, null);
+    protected JTextField getCampoTexto(String etiqueta) {
+        if (!camposTexto.containsKey(etiqueta))
+            throw new IllegalStateException("No existe el campo con la etiqueta");
+
+        return camposTexto.get(etiqueta);
+    }
+    protected JCheckBox getCheckBox(String etiqueta) {
+        if (!camposCheck.containsKey(etiqueta))
+            throw new IllegalStateException("No existe el campo con la etiqueta");
+
+        return camposCheck.get(etiqueta);
     }
 }

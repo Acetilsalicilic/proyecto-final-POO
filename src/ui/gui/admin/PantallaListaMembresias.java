@@ -6,9 +6,10 @@ import ui.gui.componentes.ModeloTabla;
 import ui.gui.componentes.PantallaLista;
 
 import javax.swing.*;
+import java.util.function.Consumer;
 
 public class PantallaListaMembresias extends PantallaLista {
-    public PantallaListaMembresias() {
+    public PantallaListaMembresias(Consumer<Membresia> enEditar) {
         ModeloTabla<Membresia> modelo = new ModeloTabla<>(
                 ServicioMembresias.instancia(),
                 (membresia, idx) -> switch (idx) {
@@ -23,6 +24,9 @@ public class PantallaListaMembresias extends PantallaLista {
                 "¿Incluye coach?",
                 "Dcto. de temporada"
         );
-        super(new JTable(modelo));
+        super(new JTable(modelo), obj -> {
+            if (obj instanceof Membresia m)
+                enEditar.accept(m);
+        });
     }
 }

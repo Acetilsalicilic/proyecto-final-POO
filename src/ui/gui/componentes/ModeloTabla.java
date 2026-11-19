@@ -48,4 +48,8 @@ public class ModeloTabla<T> extends AbstractTableModel implements ISuscriptor {
         lista = servicio.getTodos();
         fireTableDataChanged();
     }
+
+    public T getRow(int r) {
+        return lista.get(r);
+    }
 }

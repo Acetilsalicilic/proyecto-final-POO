@@ -25,6 +25,10 @@ public class Membresia {
         return nombre;
     }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
     public double getDescuentoTemporada() {
         return descuentoTemporada;
     }
