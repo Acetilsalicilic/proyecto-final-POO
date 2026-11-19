@@ -6,30 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Membresia {
-    protected String nombre;
-    Set<TipoClase> clasesDisponibles;
-    // TODO añadir espacios y tiempo límite
-    protected boolean incluyeCoach;
+public class Membresia {
+    private String nombre;
     protected double costoBase;
+    protected boolean incluyeCoach;
     protected double descuentoTemporada;
+    // TODO añadir espacios y tiempo límite
 
-    public Membresia(String nombre, boolean incluyeCoach, double costoBase) {
+    Set<TipoClase> clasesDisponibles;
+
+    public Membresia(String nombre, double costoBase, boolean incluyeCoach) {
         this.nombre = nombre;
-        this.incluyeCoach = incluyeCoach;
         this.costoBase = costoBase;
-    }
-
-    public double getDescuentoTemporada() {
-        return descuentoTemporada;
+        this.incluyeCoach = incluyeCoach;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public double getDescuentoTemporada() {
+        return descuentoTemporada;
     }
 
     public boolean isIncluyeCoach() {

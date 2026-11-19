@@ -1,7 +1,6 @@
 package servicios;
 
 import entidades.membresias.Membresia;
-import entidades.membresias.MembresiaDummy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +14,6 @@ public class ServicioMembresias implements IServicio<Membresia> {
 
     private ServicioMembresias() {
         // TODO dummy data
-        membresias.add(new MembresiaDummy());
-        membresias.add(new MembresiaDummy());
     }
 
     @Override
