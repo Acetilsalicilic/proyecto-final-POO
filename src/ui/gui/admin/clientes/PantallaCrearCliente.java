@@ -34,7 +34,7 @@ public class PantallaCrearCliente extends PantallaCampos {
             if (membresia.isIncluyeCoach()) {
                 if (selectorCoach.getSeleccionado().isEmpty()) {
                     JOptionPane.showMessageDialog(this,
-                            """
+                                    """
                                     Error: La membresía "%s" incluye un coach.
                                     
                                     Por favor, selecciona uno de la lista.

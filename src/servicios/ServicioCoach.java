@@ -17,7 +17,7 @@ public class ServicioCoach implements IServicio<Coach> {
     }
     @Override
     public List<Coach> getTodos() {
-        return List.of();
+        return lista;
     }
 
     @Override
@@ -38,6 +38,7 @@ public class ServicioCoach implements IServicio<Coach> {
 
     @Override
     public void notificarTodos() {
+        System.err.println("Notificando a "+subs.size()+" subs en coaches");
         subs.forEach(ISuscriptor::notificar);
     }
 }
