@@ -82,7 +82,4 @@ public class Espacio {
         System.out.println("Mantenimiento finalizado");
         setEstado(Disponibilidad.DISPONIBLE);
     }
-
-    public void limpieza(){
-    }
 }
