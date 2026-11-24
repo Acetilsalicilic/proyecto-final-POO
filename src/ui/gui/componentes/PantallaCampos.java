@@ -42,13 +42,19 @@ public class PantallaCampos extends Pantalla {
         else if (c instanceof JCheckBox t)
             camposCheck.put(etiqueta, t);
     }
+
+    /**
+     *  Añade un botón a la lista de campos
+     * @param etiqueta El texto que se mostrará en el botón
+     * @param enBotonPresionado La función que será llamada al presionar el botón
+     */
     protected void addBoton(String etiqueta, Runnable enBotonPresionado) {
         var boton = new JButton(etiqueta);
-        boton.addActionListener(evt -> {
+        boton.addActionListener(_ -> {
             enBotonPresionado.run();
             limpiarCampos();
         });
-        addFila(etiqueta, boton);
+        addFila(boton);
     }
     protected void limpiarCampos() {
         for (var t : camposTexto.values())
