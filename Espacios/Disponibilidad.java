@@ -2,6 +2,6 @@ package Espacios;
 
 public enum Disponibilidad {
     DISPONIBLE,
-    ENMANTENIMEINTO,
+    ENMANTENIMIENTO,
     HAYCLASE
 } 

@@ -21,23 +21,17 @@ public class Espacio {
         this.personasPresentes =new HashSet<>();
     }
 
-    public boolean hayEspacio(){
-        if (getPersonasPresentes().size()>= capacidad){
-            System.out.println("El espacio ya esta lleno");
-            System.out.println("Cantidad de personas: "+ getPersonasPresentes().size());
-            return false;
-        }else{
-            System.out.println("Si hay espacio :D");
-            return true;
-        }
-    }
-
+    
     public String getNombre(){
         return nombre;
     }
-    
+
     public Disponibilidad getEstado(){
         return estado;
+    }
+
+    public void setEstado(Disponibilidad estado){
+        this.estado=estado;
     }
 
     public Set<Persona> getPersonasPresentes() {
@@ -45,13 +39,24 @@ public class Espacio {
     }
 
     public boolean puedeIngresar(){
-        if (!(estado==Disponibilidad.DISPONIBLE)){
+        if (!(getEstado()==Disponibilidad.DISPONIBLE)){
             System.out.println("En este momento no se encuentra disponible");
             System.out.println("Estado: " + getEstado());
             return false;
 
         }else{
             System.out.println("Disponible :D");
+            return true;
+        }
+    }
+
+    public boolean hayEspacio(){
+        if (getPersonasPresentes().size()>= capacidad){
+            System.out.println("El espacio ya esta lleno");
+            System.out.println("Cantidad de personas: "+ getPersonasPresentes().size());
+            return false;
+        }else{
+            System.out.println("Si hay espacio :D");
             return true;
         }
     }
@@ -69,13 +74,13 @@ public class Espacio {
 
     public void iniciarMantenimiento(Persona persona){
         //aqui tambien no se en donde se registra que comenzo el mantenimiento
-        estado=Disponibilidad.ENMANTENIMEINTO;
+        setEstado(Disponibilidad.ENMANTENIMIENTO);
     }
 
     public void finalizarMantenimiento(){
         //aqui pues solo imprimiria no? y lo del mensajito
         System.out.println("Mantenimiento finalizado");
-        estado=Disponibilidad.DISPONIBLE;
+        setEstado(Disponibilidad.DISPONIBLE);
     }
 
 }
