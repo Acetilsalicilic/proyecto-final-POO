@@ -83,4 +83,6 @@ public class Espacio {
         setEstado(Disponibilidad.DISPONIBLE);
     }
 
+    public void limpieza(){
+    }
 }

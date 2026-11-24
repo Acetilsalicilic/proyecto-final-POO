@@ -9,6 +9,10 @@ public class Alberca extends Espacio {
         super(nombre, capacidad);
     }
 
+    public double getTemperaturaAgua(){
+        return temperaturaAgua;
+    }
+
      @Override 
     public boolean puedeIngresar(){
         //no recuerdo
