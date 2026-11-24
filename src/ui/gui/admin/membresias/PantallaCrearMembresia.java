@@ -1,4 +1,4 @@
-package ui.gui.admin;
+package ui.gui.admin.membresias;
 
 import entidades.membresias.Membresia;
 import servicios.ServicioMembresias;
@@ -13,7 +13,6 @@ public class PantallaCrearMembresia extends PantallaCampos {
         addCampoTexto("Nombre");
         addCampoTexto("Precio base");
         addCheck("¿Incluye coach?");
-
 
         addBoton("Crear membresía", () -> {
             String nombre = getCampoTexto("Nombre").getText();

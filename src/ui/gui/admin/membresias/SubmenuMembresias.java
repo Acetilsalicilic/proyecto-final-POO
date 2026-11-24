@@ -1,6 +1,5 @@
-package ui.gui.admin;
+package ui.gui.admin.membresias;
 
-import servicios.ServicioMembresias;
 import ui.gui.componentes.Submenu;
 
 public class SubmenuMembresias extends Submenu {

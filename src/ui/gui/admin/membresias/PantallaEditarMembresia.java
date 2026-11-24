@@ -1,9 +1,7 @@
-package ui.gui.admin;
+package ui.gui.admin.membresias;
 
 import entidades.membresias.Membresia;
 import ui.gui.componentes.PantallaCampos;
-
-import java.util.Map;
 
 public class PantallaEditarMembresia extends PantallaCampos {
     private Membresia membresia;

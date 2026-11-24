@@ -1,4 +1,4 @@
-package ui.gui.admin;
+package ui.gui.admin.membresias;
 
 import entidades.membresias.Membresia;
 import servicios.ServicioMembresias;
@@ -6,7 +6,6 @@ import ui.gui.componentes.ModeloTabla;
 import ui.gui.componentes.PantallaLista;
 
 import javax.swing.*;
-import java.util.function.Consumer;
 
 public class PantallaListaMembresias extends PantallaLista {
     public PantallaListaMembresias() {
@@ -28,6 +27,8 @@ public class PantallaListaMembresias extends PantallaLista {
 
         PantallaEditarMembresia editarMembresia = new PantallaEditarMembresia(15, () -> {
             cardLayout.show(this, PRINCIPAL);
+            // Todos deben notificarse para reconstruir el nombre guardado
+            ServicioMembresias.instancia().notificarTodos();
         });
         addPantallaEditar(editarMembresia);
 

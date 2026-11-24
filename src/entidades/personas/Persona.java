@@ -15,9 +15,14 @@ public abstract class Persona {
 
     protected Set<Clase> clasesInscritas = new HashSet<>();
 
-    // TODO test-only constructo
-    public Persona(String nombre) {
+    public Persona(String nombre, MembresiaCliente membresia, Coach coach) {
         this.nombre = nombre;
+        this.membresia = membresia;
+        this.coach = coach;
+    }
+
+    public Persona(String nombre) {
+        this(nombre, null, null);
     }
 
     public String getNombre() {
