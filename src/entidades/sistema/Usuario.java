@@ -9,6 +9,22 @@ public class Usuario {
     private String nombreUsuario;
     private String passwd;
 
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = hash(passwd);
+    }
+
     public Usuario(String nombreUsuario, String passwd) {
         this.nombreUsuario = nombreUsuario;
         this.passwd = hash(passwd);

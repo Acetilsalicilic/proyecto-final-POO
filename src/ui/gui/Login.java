@@ -3,6 +3,7 @@ package ui.gui;
 import entidades.personas.Persona;
 import entidades.personas.empleados.Administrador;
 import entidades.sistema.Usuario;
+import servicios.ServicioUsuarios;
 
 import javax.swing.*;
 import java.util.function.Consumer;
@@ -11,10 +12,6 @@ public class Login extends JPanel {
     private JPanel container = new JPanel();
     private JTextField user_t, passwd_t;
     private JButton inicio_b;
-
-    // TODO esto debería estar en un servicio
-    private Administrador admin = new Administrador("admin");
-    private Usuario usr = new Usuario("admin", "admin");
 
     public Login(Consumer<Persona> enExito, Runnable enFracaso) {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -39,12 +36,13 @@ public class Login extends JPanel {
 
             var nuevo = new Usuario(user, passwd);
 
-            // TODO esto debería poder manejar más casos, y consultar usuario -> persona en una DB
-            if (nuevo.equals(usr)) {
-                enExito.accept(admin);
-            } else {
+            var verificacion = ServicioUsuarios.instancia().verificar(nuevo);
+            if (verificacion.isEmpty()) {
                 enFracaso.run();
+            } else {
+                enExito.accept(verificacion.get());
             }
+
         });
         container.add(inicio_b);
 

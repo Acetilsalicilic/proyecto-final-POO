@@ -28,11 +28,13 @@ public class GUI {
                     var mgr = (CardLayout) main.getLayout();
                     mgr.show(main, "vistaAdmin");
                 }
-                default -> throw new IllegalArgumentException("Tipo de persona desconocido");
+                default -> JOptionPane.showMessageDialog(frame, "Error: no existe una vista para el tipo de usuario");
             }
         };
 
-        main.add(new Login(enExito, () -> JOptionPane.showMessageDialog(frame, "ERROR!")), "login");
+        main.add(new Login(enExito,
+                () -> JOptionPane.showMessageDialog(frame, "Error: credenciales incorrectas")),
+                "login");
 
         // Configurar la ventana
         frame.setBounds(200, 200, 800, 600);
