@@ -6,7 +6,7 @@ import entidades.personas.Persona;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Espacio {
+public abstract class Espacio {
     private String nombre;
     private int capacidad;
 
@@ -14,20 +14,31 @@ public class Espacio {
     private Set<Persona> personasPresentes;
     private Horario horario;
 
-    public Espacio (String nombre, int capacidad){
+
+
+
+    public Espacio (String nombre, int capacidad, Horario horario){
         this.nombre= nombre;
         this.capacidad=capacidad;
         this.estado=Disponibilidad.DISPONIBLE;
         this.personasPresentes =new HashSet<>();
+        this.horario=horario;
     }
 
     
-    public String getNombre(){
+
+
+
+    public String getNombreEspacio(){
         return nombre;
     }
 
     public Disponibilidad getEstado(){
         return estado;
+    }
+
+    public void agregarPersona(Persona persona){
+        getPersonasPresentes.add(persona);
     }
 
     public void setEstado(Disponibilidad estado){
@@ -38,22 +49,32 @@ public class Espacio {
         return personasPresentes;
     }
 
-    public boolean puedeIngresar(){
-        if (!(getEstado()==Disponibilidad.DISPONIBLE)){
-            System.out.println("En este momento no se encuentra disponible");
-            System.out.println("Estado: " + getEstado());
-            return false;
-
-        }else{
-            System.out.println("Disponible :D");
-            return true;
-        }
+    public void eliminarPersona(Persona persona){
+        personasPresentes.remove(persona);
     }
 
+    public boolean contienePersona(Persona persona){
+        return personasPresentes.contains(persona);
+    }
+
+    public int getCapacidad() {
+        return capacidad; 
+    }
+
+    public Horario getHorario(){
+        return horario;
+    }
+
+
+
+
+
+    public abstract boolean puedeIngresar(Persona persona);
+
     public boolean hayEspacio(){
-        if (getPersonasPresentes().size()>= capacidad){
+        if (getPersonasPresentes().size()>= getCapacidad()){
             System.out.println("El espacio ya esta lleno");
-            System.out.println("Cantidad de personas: "+ getPersonasPresentes().size());
+            System.out.println("Cantidad de personas: "+ getPersonasPresentes().size()+ " / "+getCapacidad());
             return false;
         }else{
             System.out.println("Si hay espacio :D");
@@ -61,25 +82,41 @@ public class Espacio {
         }
     }
 
-    public void registrarEntrada(Persona persona){
-        if (hayEspacio() && puedeIngresar()){
-            //tipo un tipo hora de entrada?
-            //aqui no se tipo en donde registramos la entrada de alguien?
+    public boolean registrarEntrada(Persona persona){
+        if (getEstado()!=Disponibilidad.DISPONIBLE){
+            System.out.println("En este momento no se encuentra disponible");
+            System.out.println("Estado: " + getEstado());
+            return false;
         }
+
+        if (hayEspacio() && puedeIngresar(persona)){
+            agregarPersona(persona);
+            System.out.println("Acceso concedido. " + persona.getNombre() + " ha ingresado a " + getNombreEspacio());
+            return true;
+        }
+
+        return false;
     }
 
-    public void registrarSalida(Persona persona){
-        //salio a tal hora 
+    public boolean registrarSalida(Persona persona){
+        if (contienePersona(persona)) {
+            eliminarPersona(persona);
+            System.out.println(persona.getNombre() + " ha salido de " + getNombreEspacio());
+            return true;
+        }
+
+        System.out.println("La persona no se encontraba registrada dentro de " + getNombreEspacio());
+        return false;
     }
 
-    public void iniciarMantenimiento(Persona persona){
-        //aqui tambien no se en donde se registra que comenzo el mantenimiento
+    public void iniciarMantenimiento(Servivio personal){
         setEstado(Disponibilidad.ENMANTENIMIENTO);
     }
 
     public void finalizarMantenimiento(){
-        //aqui pues solo imprimiria no? y lo del mensajito
         System.out.println("Mantenimiento finalizado");
         setEstado(Disponibilidad.DISPONIBLE);
     }
+
+
 }
