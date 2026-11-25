@@ -1,7 +1,8 @@
 package Espacios;
 
 import Calendario.*;
-import entidades.personas.Persona;
+import entidades.personas.*;
+import entidades.personas.empleados.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -38,7 +39,7 @@ public abstract class Espacio {
     }
 
     public void agregarPersona(Persona persona){
-        getPersonasPresentes.add(persona);
+        getPersonasPresentes().add(persona);
     }
 
     public void setEstado(Disponibilidad estado){
@@ -109,7 +110,7 @@ public abstract class Espacio {
         return false;
     }
 
-    public void iniciarMantenimiento(Servivio personal){
+    public void iniciarMantenimiento(Servicio personal){
         setEstado(Disponibilidad.ENMANTENIMIENTO);
     }
 
