@@ -26,6 +26,18 @@ public class ServicioUsuarios implements IServicio<Usuario> {
         );
     }
 
+    public boolean existeUsuario(String usuario) {
+        for (var u : lista) {
+            if (u.getNombreUsuario().equals(usuario))
+                return true;
+        }
+        return false;
+    }
+
+    public boolean existePersona(Persona persona) {
+        return mappings.containsValue(persona);
+    }
+
     public Optional<Persona> verificar(Usuario usuario) {
         if (!lista.contains(usuario))
             return Optional.empty();

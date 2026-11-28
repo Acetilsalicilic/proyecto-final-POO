@@ -11,18 +11,23 @@ public class PantallaLista extends Pantalla {
     protected PantallaCampos pantallaEditar;
     protected JTable tabla;
 
-    public PantallaLista(JTable tabla) {
+    public PantallaLista(JTable tabla, boolean boton) {
         this.tabla = tabla;
 
         JScrollPane scrollTabla = new JScrollPane(tabla);
         addComponente(scrollTabla);
 
         // Añadir botones de editar y eliminar
-        JPanel botones = new JPanel(new FlowLayout());
-        botonEditar = new JButton("Editar");
-        botones.add(botonEditar);
+        if (boton) {
+            JPanel botones = new JPanel(new FlowLayout());
+            botonEditar = new JButton("Editar");
+            botones.add(botonEditar);
 
-        addComponente(botonEditar);
+            addComponente(botonEditar);
+        }
+    }
+    public PantallaLista(JTable tabla) {
+        this(tabla, true);
     }
     public void addPantallaEditar(PantallaCampos pantallaEditar) {
         this.pantallaEditar = pantallaEditar;

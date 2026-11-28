@@ -15,10 +15,11 @@ public class PantallaListaUsuarios extends PantallaLista {
         ModeloTabla<Usuario> modelo = new ModeloTabla<>(
                 ServicioUsuarios.instancia(),
                 (u, col) -> switch (col) {
-                    case 1 -> u.getNombreUsuario();
-                    case 2 -> ServicioUsuarios.instancia().getMapping(u).getNombre();
+                    case 0 -> u.getNombreUsuario();
+                    case 1 -> ServicioUsuarios.instancia().getMapping(u).getNombre();
                     default -> null;
-                }
+                },
+                nombres
         );
         super(new JTable(modelo));
 

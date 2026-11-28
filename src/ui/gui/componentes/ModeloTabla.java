@@ -18,9 +18,8 @@ public class ModeloTabla<T> extends AbstractTableModel implements ISuscriptor {
         this.getter = getter;
         this.servicio = servicio;
 
-        lista = servicio.getTodos();
-
         servicio.suscribir(this);
+        lista = servicio.getTodos();
     }
 
     @Override
